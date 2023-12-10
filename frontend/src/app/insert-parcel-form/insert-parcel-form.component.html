@@ -1,0 +1,51 @@
+<form [formGroup]="insertParcelForm" (ngSubmit)="onSubmit()">
+  <div>
+    <label for="parcelSKU">Parcel SKU:</label>
+    <input type="text" id="parcelSKU" formControlName="parcelSKU" />
+    <div *ngIf="insertParcelForm.controls['parcelSKU'].errors?.['required']">
+      Parcel SKU is required.
+    </div>
+  </div>
+
+  <div>
+    <label for="description">Description:</label>
+    <input type="text" id="description" formControlName="description" />
+    <div *ngIf="insertParcelForm.controls['description'].errors?.['required']">
+      Description is required.
+    </div>
+  </div>
+
+  <div>
+    <label for="streetAddress">Street address:</label>
+    <input type="text" id="streetAddress" formControlName="streetAddress" />
+    <div *ngIf="insertParcelForm.controls['streetAddress'].errors?.['required']">
+      Street Address is required.
+    </div>
+  </div>
+
+  <div>
+    <label for="town">Town:</label>
+    <input type="text" id="town" formControlName="town" />
+    <div *ngIf="insertParcelForm.controls['town'].errors?.['required']">
+        Town is required.
+    </div>
+  </div>
+
+  <div>
+    <label for="country">Country:</label>
+    <input type="text" id="country" formControlName="country" />
+    <div *ngIf="insertParcelForm.controls['country'].errors?.['required']">
+        Country is required.
+    </div>
+  </div>
+
+  <div>
+    <label for="deliveryDate">Delivery date:</label>
+    <input type="text" id="deliveryDate" formControlName="deliveryDate" />
+    <div *ngIf="insertParcelForm.controls['deliveryDate'].errors?.['required']">
+        Delivery date is required.
+    </div>
+  </div>
+
+  <button type="submit" [disabled]="!insertParcelForm.valid">Submit</button>
+</form>
