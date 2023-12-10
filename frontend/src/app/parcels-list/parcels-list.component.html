@@ -1,0 +1,10 @@
+<div>
+    <input type="text" [(ngModel)]="countryFilter" placeholder="Filter by country" (ngModelChange)="applyFilters()" />
+    <input type="text" [(ngModel)]="descriptionFilter" placeholder="Search by description" (ngModelChange)="applyFilters()" />
+
+    <ul>
+      <li *ngFor="let parcel of filteredParcels">
+        <p>{{ parcel.description }} - {{ parcel.country }} - {{ parcel.deliveryDate | date }}</p>
+      </li>
+    </ul>
+  </div>
