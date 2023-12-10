@@ -1,5 +1,6 @@
 import "reflect-metadata"
 import { DataSource } from "typeorm"
+import { Parcel } from "./models/parcel"
 
 export const AppDataSource = new DataSource({
     type: "postgres",
@@ -10,7 +11,13 @@ export const AppDataSource = new DataSource({
     database: "parcelsdb",
     synchronize: true,
     logging: false,
-    entities: [],
+    entities: [Parcel],
     migrations: [],
     subscribers: [],
 })
+
+AppDataSource.initialize()
+    .then(() => {
+
+    })
+    .catch((error) => console.log(error))
