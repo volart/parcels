@@ -1,7 +1,7 @@
 ### Commands to run
 ```bash
 npx tsc
-node ./dist/index.js
+node ./dist/app.js
 ```
 
 ### Commands log

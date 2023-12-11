@@ -1,7 +1,7 @@
 import express from "express";
 import "reflect-metadata"
 import { Parcel } from "./models/parcel";
-import { AppDataSource } from "./data-source";
+import { AppDataSource } from "./models/data-source";
 
 const app = express();
 const port = process.env.PORT ?? 3000;
