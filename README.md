@@ -14,14 +14,6 @@ npm install -g @angular/cli
 
 ### Project structure
 
-`backend` folder contains everything related to server side
-`frontend` folder contains fancy UI where cliets can managing their parcels
-`docker` folder contains docker related files to help in running project
-
-
-
-### Commands
-```bash
-npx tsc
-node ./dist/index.js
-```
+* `backend` folder contains everything related to server side
+* `frontend` folder contains fancy UI where cliets can managing their parcels
+* `docker` folder contains docker related files to help in running project
