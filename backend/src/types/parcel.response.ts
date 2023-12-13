@@ -1,3 +1,4 @@
 export interface ParcelResponse {
-    id: number;
+    id?: number;
+    error?: string;
 }
