@@ -5,12 +5,12 @@ import { toParcelEntity, toParcelResponse } from "../utils/parcels.utils";
 import { saveParcel } from "../models/db";
 
 
-export const createParcel = (
+export const createParcel = async (
   req: Request<ParcelRequest>,
   res: Response<ParcelResponse>
-): void => {
+): Promise<void> => {
   const parcelEnity = toParcelEntity(req.body);
-  const savedParcel = saveParcel(parcelEnity);
+  const savedParcel = await saveParcel(parcelEnity);
   const response = toParcelResponse(savedParcel);
 
   res.json(response);
