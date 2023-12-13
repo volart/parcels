@@ -2,17 +2,16 @@ import { Request, Response } from "express";
 import { ParcelRequest } from "../types/parcel.request";
 import { ParcelResponse } from "../types/parcel.response";
 import { toParcelEntity, toParcelResponse } from "../utils/parcels.utils";
-import { AppDataSource } from "../models/data-source";
+import { saveParcel } from "../models/db";
 
-export const createParcel = async (
+
+export const createParcel = (
   req: Request<ParcelRequest>,
   res: Response<ParcelResponse>
-): Promise<void> => {
+): void => {
   const parcelEnity = toParcelEntity(req.body);
-
-  await AppDataSource.manager.save(parcelEnity);
-
-  const response = toParcelResponse(parcelEnity);
+  const savedParcel = saveParcel(parcelEnity);
+  const response = toParcelResponse(savedParcel);
 
   res.json(response);
 };
