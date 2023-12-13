@@ -2,6 +2,7 @@
 ```bash
 npx tsc
 node ./dist/app.js
+npm test
 ```
 
 ### Commands log
@@ -12,4 +13,6 @@ npm install reflect-metadata --save
 npm install pg --save
 npx typeorm init --database postgres
 npx typeorm entity:create src/models/parcel
+npm install --save-dev jest ts-jest ts-node @types/jest @types/supertest @types/express
+npx ts-jest config:init
 ```
