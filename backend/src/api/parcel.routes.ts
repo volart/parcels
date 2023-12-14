@@ -1,5 +1,5 @@
 import express, { Router } from 'express';
-import { createParcel } from '../controllers/parcels.controller';
+import { createParcel } from '../controllers/parcel.controller';
 
 const router: Router = express.Router();
 

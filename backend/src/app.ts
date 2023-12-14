@@ -1,6 +1,6 @@
 import express, { Request, Response, NextFunction } from "express";
 import "reflect-metadata";
-import parcelRoutes from "./api/parcels.routes";
+import parcelRoutes from "./api/parcel.routes";
 
 const app = express();
 const port = process.env.PORT ?? 3000;
