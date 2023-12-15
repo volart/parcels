@@ -1,22 +1,42 @@
 import { Request, Response } from "express";
-import { ParcelRequest } from "../types/parcel.request";
-import { ParcelResponse } from "../types/parcel.response";
-import { toParcelEntity, toParcelResponse } from "../utils/parcels.utils";
-import { saveParcel } from "../models/db";
 
-export const createParcel = async (
-  req: Request<ParcelRequest>,
-  res: Response<ParcelResponse>
-): Promise<void> => {
-  try {
-    const parcelEnity = toParcelEntity(req.body);
-    const savedParcel = await saveParcel(parcelEnity);
-    const response = toParcelResponse(savedParcel);
+import {
+  getParcelsByCountry,
+  getParcelsByDescription,
+  getParcelsBy,
+  getParcels,
+} from "../models/db";
+import { ParcelEntity } from "../models/parcel.entity";
+import { toParcelEntity, toParcelsResponse } from "../utils/parcels.utils";
+import { ParcelsResponse } from "../types/parcels.response";
 
-    res.json(response);
-  } catch (error) {
-    console.error("Error saving parcel:", error);
+export const filterByCountry = async (
+  country: string
+): Promise<ParcelsResponse> => {
+  const parcels = await getParcelsByCountry(country);
 
-    res.status(400).json({ error: "Failed to save the parcel." });
-  }
+  return toParcelsResponse(parcels);
+};
+
+export const filterByDescription = async (
+  description: string
+): Promise<ParcelsResponse> => {
+  const parcels = await getParcelsByDescription(description);
+
+  return toParcelsResponse(parcels);
+};
+
+export const filterBy = async (
+  country: string,
+  description: string
+): Promise<ParcelsResponse> => {
+  const parcels = await getParcelsBy(country, description);
+
+  return toParcelsResponse(parcels);
+};
+
+export const getAllParcels = async (): Promise<ParcelsResponse> => {
+  const parcels = await getParcels();
+
+  return toParcelsResponse(parcels);
 };

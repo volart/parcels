@@ -1,9 +1,9 @@
-import app from '../src/app';
-import request from 'supertest'
-import * as db from '../src/models/db'
+import app from "../src/app";
+import request from "supertest";
+import * as db from "../src/models/db";
+import { describe } from "node:test";
 
-
-jest.mock('../src/models/db', () => ({
+jest.mock("../src/models/db", () => ({
   saveParcel: jest.fn(),
 }));
 
@@ -15,8 +15,10 @@ describe("POST /api/parcel", () => {
   test("it should create a new parcel", async () => {
     const now = new Date();
 
+    const id = 1;
+
     (db.saveParcel as jest.Mock).mockImplementation((parcel) => {
-      parcel.id = 1;
+      parcel.id = id;
       return parcel;
     });
 
@@ -34,10 +36,15 @@ describe("POST /api/parcel", () => {
       .send(data)
       .set("Accept", "application/json");
 
+      // TODO Add deliveryDate validation
     expect(response.status).toBe(200);
-    expect(response.body).toEqual({
-      id: 1,
-    });
+    expect(response.body).toBeDefined();
+    expect(response.body.id).toBe(id);
+    expect(response.body.parcelSKU).toBe(data.parcelSKU);
+    expect(response.body.description).toBe(data.description);
+    expect(response.body.streetAddress).toBe(data.streetAddress);
+    expect(response.body.town).toBe(data.town);
+    expect(response.body.country).toBe(data.country);
   });
 
   test("it should 400 for missing data", async () => {
@@ -50,7 +57,9 @@ describe("POST /api/parcel", () => {
     };
 
     (db.saveParcel as jest.Mock).mockImplementation((_) => {
-      throw new Error("QueryFailedError: null value in column \"deliveryDate\" of relation \"parcel\" violates not-null constraint");
+      throw new Error(
+        'QueryFailedError: null value in column "deliveryDate" of relation "parcel" violates not-null constraint'
+      );
     });
 
     const response = await request(app)
@@ -80,4 +89,8 @@ describe("POST /api/parcel", () => {
     expect(response.status).toBe(404);
     expect(response.body).toEqual({ error: "Not Found" });
   });
+});
+
+describe("GET /api/parcels", () => {
+//TODO Write tests for get method:
 });

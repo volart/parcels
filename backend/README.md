@@ -5,6 +5,25 @@ node ./dist/app.js
 npm test
 ```
 
+
+### Manual test
+
+When the server is running you can test:
+
+1) Creating of a parcel
+```bash
+curl -X POST http://localhost:3000/api/parcel \
+-H "Content-Type: application/json" \
+-d '{
+    "parcelSKU": "SKU1111",
+    "description": "Sample parcel description",
+    "streetAddress": "123 Main St",
+    "town": "Anytown",
+    "country": "Wonderland",
+    "deliveryDate": "'$(date -u +"%Y-%m-%dT%H:%M:%SZ")'"
+}'
+```
+
 ### Commands log
 ```bash
 npm install ts-node --save-dev

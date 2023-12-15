@@ -1,6 +1,7 @@
 import express, { Request, Response, NextFunction } from "express";
 import "reflect-metadata";
-import parcelRoutes from "./api/parcels.routes";
+import parcelRoutes from "./api/parcel.routes";
+import parcelsRoutes from "./api/parcels.routes";
 
 const app = express();
 const port = process.env.PORT ?? 3000;
@@ -8,12 +9,16 @@ const port = process.env.PORT ?? 3000;
 app.use(express.json());
 
 app.use("/api/parcel", parcelRoutes);
+app.use("/api/parcels", parcelsRoutes);
 
+// TODO: Write test for 404
 // Catch-all route for undefined routes
 app.use((req: Request, res: Response, next: NextFunction) => {
   res.status(404).json({ error: "Not Found" });
 });
 
+
+// TODO: Write test for 500
 // Error-handling
 app.use((error: Error, req: Request, res: Response, next: NextFunction) => {
   console.error(error);
