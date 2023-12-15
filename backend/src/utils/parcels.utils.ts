@@ -1,6 +1,7 @@
 import { ParcelEntity } from "../models/parcel.entity";
 import { ParcelRequest } from "../types/parcel.request";
 import { ParcelResponse } from "../types/parcel.response";
+import { ParcelsResponse } from "../types/parcels.response";
 
 export const toParcelEntity = (request: ParcelRequest): ParcelEntity => {
   const enity = new ParcelEntity();
@@ -14,8 +15,17 @@ export const toParcelEntity = (request: ParcelRequest): ParcelEntity => {
 };
 
 export const toParcelResponse = (entity: ParcelEntity): ParcelResponse => {
-    return {
-        id: entity.id
-    };
-}
+  return {
+    id: entity.id,
+    parcelSKU: entity.parcelSKU,
+    description: entity.description,
+    streetAddress: entity.streetAddress,
+    town: entity.town,
+    country: entity.country,
+    deliveryDate: entity.deliveryDate,
+  };
+};
 
+export const toParcelsResponse = (entities: ParcelEntity[]): ParcelsResponse => {
+  return { parcels: entities.map((entity) => toParcelResponse(entity)) };
+};

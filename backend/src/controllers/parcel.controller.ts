@@ -3,10 +3,11 @@ import { ParcelRequest } from "../types/parcel.request";
 import { ParcelResponse } from "../types/parcel.response";
 import { toParcelEntity, toParcelResponse } from "../utils/parcels.utils";
 import { saveParcel } from "../models/db";
+import { ErrorResponse } from "../types/error.response";
 
 export const createParcel = async (
   req: Request<ParcelRequest>,
-  res: Response<ParcelResponse>
+  res: Response<ParcelResponse | ErrorResponse>
 ): Promise<void> => {
   try {
     const parcelEnity = toParcelEntity(req.body);

@@ -46,10 +46,10 @@ export const getParcelsBy = async (country: string, description: string) => {
   return parcelsByDescription;
 };
 
-//TODO: As a next iteration we should implement pagination
-//to improve user expirince(it can speed up the process in we have many parcels in our query result),
+// TODO: As a next iteration we should implement pagination
+// to improve user expirince(it can speed up the process in we have many parcels in our query result),
 // besides that increas system resilience
-export const getAllParcels = async () => {
+export const getParcels = async () => {
   const parcels = await parcelRepository.createQueryBuilder("parcel").getMany()
   return parcels;
 };
