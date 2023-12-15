@@ -1,5 +1,5 @@
 export interface ParcelResponse {
-    id: number;
+    id: string;
     parcelSKU: string;
     description: string;
     streetAddress: string;

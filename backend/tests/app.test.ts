@@ -2,6 +2,7 @@ import app from "../src/app";
 import request from "supertest";
 import * as db from "../src/models/db";
 import { describe } from "node:test";
+import { generateUniqueId } from "../src/utils/db.utils";
 
 jest.mock("../src/models/db", () => ({
   saveParcel: jest.fn(),
@@ -15,7 +16,7 @@ describe("POST /api/parcel", () => {
   test("it should create a new parcel", async () => {
     const now = new Date();
 
-    const id = 1;
+    const id = generateUniqueId();
 
     (db.saveParcel as jest.Mock).mockImplementation((parcel) => {
       parcel.id = id;
@@ -39,7 +40,7 @@ describe("POST /api/parcel", () => {
       // TODO Add deliveryDate validation
     expect(response.status).toBe(200);
     expect(response.body).toBeDefined();
-    expect(response.body.id).toBe(id);
+    expect(response.body.id).toEqual(id);
     expect(response.body.parcelSKU).toBe(data.parcelSKU);
     expect(response.body.description).toBe(data.description);
     expect(response.body.streetAddress).toBe(data.streetAddress);
