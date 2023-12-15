@@ -1,5 +1,6 @@
 import express, { Router, Request, Response } from 'express';
 import { filterBy, filterByCountry, filterByDescription, getAllParcels } from '../controllers/parcels.controller';
+import { ParcelsResponse } from '../types/parcels.response';
 
 const router: Router = express.Router();
 
@@ -8,17 +9,17 @@ interface GetParcelsParams {
     description?: string;
   }
 
-router.get('/', (req: Request<GetParcelsParams>, res: Response) => {
+router.get('/', async (req: Request, res: Response<ParcelsResponse>) => {
     const { country, description } = req.query as GetParcelsParams;
 
     if (country && !description) {
-        return filterByCountry(country)
+        res.json(await filterByCountry(country))
     } else if(description && !country) {
-        return filterByDescription(description)
+        res.json( await filterByDescription(description))
     } else if(country && description) {
-        return filterBy(country, description)
+        res.json( await filterBy(country, description))
     } else {
-        return getAllParcels
+        res.json( await getAllParcels())
     }
   });
 

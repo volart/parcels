@@ -1,8 +1,8 @@
 ### Commands to run
 ```bash
-npx tsc
+npm run rebuild
 node ./dist/app.js
-npm test
+npm run test
 ```
 
 
@@ -22,6 +22,12 @@ curl -X POST http://localhost:3000/api/parcel \
     "country": "Wonderland",
     "deliveryDate": "'$(date -u +"%Y-%m-%dT%H:%M:%SZ")'"
 }'
+```
+
+2) Receive list of parsels
+```bash
+curl -X GET "http://localhost:3000/api/parcels?country=Wonderl&description=parcel" \
+-H "Content-Type: application/json"
 ```
 
 ### Commands log

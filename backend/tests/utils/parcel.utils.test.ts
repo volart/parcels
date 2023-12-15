@@ -35,7 +35,7 @@ describe("toParcelEntity", () => {
 describe("toParcelResponse", () => {
   it("should convert ParcelEntity to ParcelResponse", () => {
     const entity: ParcelEntity = {
-      id: 1,
+      id: "1702671812839-3f75c9da",
       parcelSKU: "SKU123",
       description: "Test Parcel",
       streetAddress: "123 Main St",
@@ -61,7 +61,7 @@ describe("toParcelsResponse", () => {
   it("should convert an array of ParcelEntity to ParcelsResponse", () => {
     const entities: ParcelEntity[] = [
       {
-        id: 1,
+        id: "c",
         parcelSKU: "SKU123",
         description: "Parcel 1",
         streetAddress: "123 Main St",
@@ -70,7 +70,7 @@ describe("toParcelsResponse", () => {
         deliveryDate: new Date(),
       },
       {
-        id: 2,
+        id: "1702671812840-4a47c8dc",
         parcelSKU: "SKU456",
         description: "Parcel 2",
         streetAddress: "456 Elm St",
