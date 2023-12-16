@@ -1,18 +1,28 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { AbstractControl, FormControl, FormGroup, ReactiveFormsModule, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
+import {
+  AbstractControl,
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+  ValidationErrors,
+  ValidatorFn,
+  Validators,
+} from '@angular/forms';
+import { ApiService } from '../services/api.service';
 
 @Component({
   selector: 'app-insert-parcel-form',
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './insert-parcel-form.component.html',
-  styleUrl: './insert-parcel-form.component.css'
+  styleUrl: './insert-parcel-form.component.css',
+  providers: [ApiService],
 })
 export class InsertParcelFormComponent implements OnInit {
-
   insertParcelForm!: FormGroup;
 
+  private api = inject(ApiService);
 
   ngOnInit(): void {
     // TODO: Add duplicateSKUVaidator for checking if parcel sku is duplicated
@@ -34,10 +44,14 @@ export class InsertParcelFormComponent implements OnInit {
     };
   }
 
-   // Sending data to the server
-   onSubmit() {
+  // Sending data to the server
+  onSubmit() {
     if (this.insertParcelForm.valid) {
-
+      const formData = this.insertParcelForm.value;
+      this.api.insertParcel(formData, (response) => {
+        console.log('Data submitted successfully:', response);
+        this.insertParcelForm.reset();
+      });
     }
   }
 }

@@ -14,7 +14,7 @@ import { Parcel } from '../models/parcel.model';
 export class ParcelsListComponent implements OnInit {
   parcels: Parcel[] = [
     {
-      id: 1,
+      id: "1702672293143-e159c817",
       sku: "ABC-12345-S-BL",
       description: "Small box",
       streetAddress: "Ehte 5",
@@ -23,7 +23,7 @@ export class ParcelsListComponent implements OnInit {
       deliveryDate: new Date('2024-07-02')
     },
     {
-      id: 2,
+      id: "1702672293143-e159c817",
       sku: "BCD-23456-M-GR",
       description: "Medium box",
       streetAddress: "Merituulentie 35",
