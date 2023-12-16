@@ -1,55 +1,70 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Parcel } from '../models/parcel.model';
-import {MatTableModule} from '@angular/material/table';
+import { ApiService } from '../services/api.service';
 
+//Material
+import { MatTableModule } from '@angular/material/table';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatDividerModule } from '@angular/material/divider';
+import { Parcels } from '../models/parcels.model';
 
 @Component({
   selector: 'app-parcels-list',
   standalone: true,
-  imports: [CommonModule, FormsModule, MatTableModule],
+  imports: [
+    CommonModule,
+    FormsModule,
+    MatTableModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    MatIconModule,
+    MatDividerModule,
+  ],
   templateUrl: './parcels-list.component.html',
   styleUrl: './parcels-list.component.css',
+  providers: [ApiService],
 })
 export class ParcelsListComponent implements OnInit {
-  parcels: Parcel[] = [
-    {
-      id: "1702672293143-e159c817",
-      sku: "ABC-12345-S-BL",
-      description: "Small box",
-      streetAddress: "Ehte 5",
-      town: "Haapsalu",
-      country: "Estonia",
-      deliveryDate: new Date('2024-07-02')
-    },
-    {
-      id: "1702672293143-e159c817",
-      sku: "BCD-23456-M-GR",
-      description: "Medium box",
-      streetAddress: "Merituulentie 35",
-      town: "Espoo",
-      country: "Finland",
-      deliveryDate: new Date('2024-02-02')
-    }
-  ];
+  private api = inject(ApiService);
 
-  filteredParcels: Parcel[] = [];
-  displayedColumns: string[] = ['id', 'sku', 'description', 'streetAddress','town', 'country', 'deliveryDate'];
+  sortedParcels: Parcel[] = [];
+  displayedColumns: string[] = [
+    'id',
+    'parcelSKU',
+    'description',
+    'streetAddress',
+    'town',
+    'country',
+    'deliveryDate',
+  ];
 
   countryFilter: string = '';
   descriptionFilter: string = '';
 
-  ngOnInit(): void {
-    this.applyFilters();
+  ngOnInit(): void {}
+
+  onSubmit() {
+    console.log('countryFilter: ', this.countryFilter);
+    this.api.getParcels(
+      this.countryFilter,
+      this.descriptionFilter,
+      (response) => {
+        const parcels  = response as Parcels;
+        console.log(parcels)
+        this.sort(parcels.parcels);
+      }
+    );
   }
 
-  applyFilters() {
-    this.filteredParcels = this.parcels
-      .filter(parcel =>
-        (this.countryFilter ? parcel.country === this.countryFilter : true) &&
-        (this.descriptionFilter ? parcel.description.includes(this.descriptionFilter) : true)
-      )
-      .sort((a, b) => a.country === 'Estonia' ? -1 : a.deliveryDate.getTime() - b.deliveryDate.getTime());
+  sort(parcels: Parcel[]) {
+    this.sortedParcels = parcels.sort((a, b) =>
+      a.country === 'Estonia' ? -1 : new Date(a.deliveryDate).getTime() - new Date(b.deliveryDate).getTime()
+    );
   }
 }
