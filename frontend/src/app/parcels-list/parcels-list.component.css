@@ -1,0 +1,14 @@
+.table-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.table-wrapper {
+  margin-top: 2%;
+  width: 80%;
+}
+
+.filter {
+    margin-left: 10px;
+}

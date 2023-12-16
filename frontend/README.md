@@ -2,6 +2,8 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.0.6.
 
+UI is build with  [Angular Material](https://material.angular.io/)
+
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
@@ -31,4 +33,5 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 ng new frontend
 ng generate component insert-parcel-form
 ng generate component parcels-list
+ng add @angular/material
 ```

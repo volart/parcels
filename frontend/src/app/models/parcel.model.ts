@@ -1,6 +1,6 @@
 export interface Parcel {
     id: string;
-    sku: string;
+    parcelSKU: string;
     description: string;
     streetAddress: string;
     town: string;
