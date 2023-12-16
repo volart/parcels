@@ -2,12 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Parcel } from '../models/parcel.model';
+import {MatTableModule} from '@angular/material/table';
 
 
 @Component({
   selector: 'app-parcels-list',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, MatTableModule],
   templateUrl: './parcels-list.component.html',
   styleUrl: './parcels-list.component.css',
 })
@@ -34,6 +35,7 @@ export class ParcelsListComponent implements OnInit {
   ];
 
   filteredParcels: Parcel[] = [];
+  displayedColumns: string[] = ['id', 'sku', 'description', 'streetAddress','town', 'country', 'deliveryDate'];
 
   countryFilter: string = '';
   descriptionFilter: string = '';
