@@ -1,13 +1,10 @@
-import { Request, Response } from "express";
-
 import {
   getParcelsByCountry,
   getParcelsByDescription,
   getParcelsBy,
   getParcels,
 } from "../models/db";
-import { ParcelEntity } from "../models/parcel.entity";
-import { toParcelEntity, toParcelsResponse } from "../utils/parcels.utils";
+import { toParcelsResponse } from "../utils/parcels.utils";
 import { ParcelsResponse } from "../types/parcels.response";
 
 export const filterByCountry = async (
