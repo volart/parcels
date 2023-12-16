@@ -5,6 +5,9 @@
     <div *ngIf="insertParcelForm.controls['parcelSKU'].errors?.['required']">
       Parcel SKU is required.
     </div>
+    <div *ngIf="insertParcelForm.controls['parcelSKU'].errors?.['skuDuplicate']">
+       SKU must be unique.
+    </div>
   </div>
 
   <div>
