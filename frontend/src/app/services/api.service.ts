@@ -19,16 +19,16 @@ export class ApiService {
     });
   }
 
-  getParcels(country: string, desciption: string, next: (response: object) => void) {
+  getParcels(country: string, description: string, next: (response: object) => void) {
     const url = api_url + '/parcels';
 
-    const params = new HttpParams();
+    let params = new HttpParams();
     if (country) {
-      params.set('country', country);
+      params = params.set('country', country);
     }
 
-    if (desciption) {
-      params.set('desciption', desciption);
+    if (description) {
+      params = params.set('description', description);
     }
 
     this.http.get(url, { params }).subscribe({
