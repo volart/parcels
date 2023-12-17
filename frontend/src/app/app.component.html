@@ -1,6 +1,32 @@
-<button [routerLink]="['/']">Home</button>
-<button [routerLink]="['/insert_parcel']">Insert parsel</button>
-<button [routerLink]="['/parcels_list']">Parcels list</button>
+<mat-toolbar color="primary">
+  <button mat-button [routerLink]="['/']">Home</button>
+  <button mat-button [routerLink]="['/insert_parcel']">Insert Parcel</button>
+  <button mat-button [routerLink]="['/parcels_list']">Parcels List</button>
+</mat-toolbar>
+
+<div *ngIf="isRootRoute" class="info">
+  <div class="info-width">
+    <div class="info-h2">
+      <h2>Welcome to the Parcel Manage Demo app!</h2>
+    </div>
+    <div class="info-content">
+      This app is capable of managing parcels:
+      <ul>
+        <li>
+          Click Insert Parcel to find a form to add a new parcel to the system.
+          Make sure you are following all instructions there. 📦
+        </li>
+        <li>
+          Click Parcels List there is a table where you can see parcels regarding
+          your filters. However, there is a filter that rules them all - Estonia
+          comes first no matter what. 😉
+        </li>
+      </ul>
+      If you are interested in details of the demo please visit <a href="https://github.com/volart/parcels">a GitHub repository</a>
+    </div>
+  </div>
+</div>
+
 <section class="content">
   <router-outlet></router-outlet>
 </section>

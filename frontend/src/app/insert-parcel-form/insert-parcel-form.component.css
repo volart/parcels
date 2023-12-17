@@ -6,18 +6,19 @@
 }
 
 .form-content {
-  width: 50%; /* Adjust as needed */
+  width: 50%;
   max-width: 300px;
   margin: auto;
 }
 
 .submit-button {
-  display: block; /* Makes the button a block element */
-  margin-top: 20px; /* Adjust the margin as needed */
-  margin-left: auto; /* Aligns the button to the center */
-  margin-right: auto; /* Aligns the button to the center */
+  display: block;
+  margin-top: 20px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 20px;
 }
 
 mat-form-field {
-  width: 100%; /* Ensures each field takes full width */
+  width: 100%;
 }
