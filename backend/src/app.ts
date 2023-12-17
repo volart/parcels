@@ -2,6 +2,7 @@ import express, { Request, Response, NextFunction } from "express";
 import "reflect-metadata";
 import parcelRoutes from "./api/parcel.routes";
 import parcelsRoutes from "./api/parcels.routes";
+import skuRoutes from "./api/sku.routes";
 import cors from "cors";
 
 const app = express();
@@ -18,6 +19,7 @@ app.use(cors({
 
 app.use("/api/parcel", parcelRoutes);
 app.use("/api/parcels", parcelsRoutes);
+app.use("/api/sku", skuRoutes);
 
 // TODO: Write test for 404
 // Catch-all route for undefined routes

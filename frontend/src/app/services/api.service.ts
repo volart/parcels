@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Parcel } from '../models/parcel.model';
-import { Parcels } from '../models/parcels.model';
+import { Observable } from 'rxjs';
+import { SkuCheck } from '../models/sku-check.model';
 
 const api_url = 'http://localhost:3000/api';
 
@@ -37,5 +38,10 @@ export class ApiService {
         console.error('Error duering receiveing parcels:', error);
       },
     });
+  }
+
+  checkDuplicate(sku: string): Observable<SkuCheck> {
+    const url = api_url + '/sku/' + sku + "/duplicate";
+    return this.http.get<SkuCheck>(url);
   }
 }

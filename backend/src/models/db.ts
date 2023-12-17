@@ -51,6 +51,11 @@ export const getParcelsBy = async (country: string, description: string) => {
 // to improve user expirince(it can speed up the process in we have many parcels in our query result),
 // besides that increas system resilience
 export const getParcels = async () => {
-  const parcels = await parcelRepository.createQueryBuilder("parcel").getMany()
+  const parcels = await parcelRepository.createQueryBuilder("parcel").getMany();
   return parcels;
+};
+
+export const countParcelBySku = async (sku: string) => {
+  const parcelCount = await parcelRepository.countBy({ parcelSKU: sku });
+  return parcelCount;
 };
