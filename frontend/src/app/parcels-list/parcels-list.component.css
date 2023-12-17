@@ -10,5 +10,19 @@
 }
 
 .filter {
-    margin-left: 10px;
+  margin-left: 10px;
+}
+
+.search-button {
+  height: 40px;
+  display: flex;
+  align-items: center;
+}
+
+.filters-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
 }
