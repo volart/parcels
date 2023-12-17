@@ -1,19 +1,27 @@
 <form [formGroup]="insertParcelForm" (ngSubmit)="onSubmit()">
-  <div>
-    <label for="parcelSKU">Parcel SKU:</label>
-    <input type="text" id="parcelSKU" formControlName="parcelSKU" />
-    <div *ngIf="isSubmitted && insertParcelForm.controls['parcelSKU'].errors?.['required']">
-      Parcel SKU is required.
-    </div>
-    <div *ngIf="isSubmitted && insertParcelForm.controls['parcelSKU'].errors?.['skuDuplicate']">
-       SKU must be unique.
-    </div>
-  </div>
+  <mat-form-field class="example-full-width">
+    <mat-label>Parcel SKU</mat-label>
+    <input
+      type="text"
+      id="parcelSKU"
+      formControlName="parcelSKU"
+      matInput
+      [errorStateMatcher]="matcher"
+      placeholder="ABC-12345-S-BL"
+    />
+    @if (insertParcelForm.controls['parcelSKU'].errors?.['skuDuplicate']) {
+    <mat-error>SKU must be unique</mat-error>
+    } @if (insertParcelForm.controls['parcelSKU'].errors?.['required']) {
+    <mat-error>Parcel SKU is <strong>required</strong></mat-error>
+    }
+  </mat-form-field>
 
   <div>
     <label for="description">Description:</label>
     <input type="text" id="description" formControlName="description" />
-    <div *ngIf="isSubmitted && insertParcelForm.controls['description'].errors?.['required']">
+    <div
+      *ngIf="isSubmitted && insertParcelForm.controls['description'].errors?.['required']"
+    >
       Description is required.
     </div>
   </div>
@@ -21,7 +29,9 @@
   <div>
     <label for="streetAddress">Street address:</label>
     <input type="text" id="streetAddress" formControlName="streetAddress" />
-    <div *ngIf="isSubmitted && insertParcelForm.controls['streetAddress'].errors?.['required']">
+    <div
+      *ngIf="isSubmitted && insertParcelForm.controls['streetAddress'].errors?.['required']"
+    >
       Street Address is required.
     </div>
   </div>
@@ -29,24 +39,30 @@
   <div>
     <label for="town">Town:</label>
     <input type="text" id="town" formControlName="town" />
-    <div *ngIf="isSubmitted && insertParcelForm.controls['town'].errors?.['required']">
-        Town is required.
+    <div
+      *ngIf="isSubmitted && insertParcelForm.controls['town'].errors?.['required']"
+    >
+      Town is required.
     </div>
   </div>
 
   <div>
     <label for="country">Country:</label>
     <input type="text" id="country" formControlName="country" />
-    <div *ngIf="isSubmitted && insertParcelForm.controls['country'].errors?.['required']">
-        Country is required.
+    <div
+      *ngIf="isSubmitted && insertParcelForm.controls['country'].errors?.['required']"
+    >
+      Country is required.
     </div>
   </div>
 
   <div>
     <label for="deliveryDate">Delivery date:</label>
     <input type="text" id="deliveryDate" formControlName="deliveryDate" />
-    <div *ngIf="isSubmitted && insertParcelForm.controls['deliveryDate'].errors?.['required']">
-        Delivery date is required.
+    <div
+      *ngIf="isSubmitted && insertParcelForm.controls['deliveryDate'].errors?.['required']"
+    >
+      Delivery date is required.
     </div>
   </div>
 

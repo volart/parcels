@@ -5,6 +5,8 @@ import {
   AsyncValidatorFn,
   FormControl,
   FormGroup,
+  FormGroupDirective,
+  NgForm,
   ReactiveFormsModule,
   ValidationErrors,
   ValidatorFn,
@@ -13,10 +15,22 @@ import {
 import { ApiService } from '../services/api.service';
 import { Observable, map, of } from 'rxjs';
 
+//Material
+import {ErrorStateMatcher} from '@angular/material/core';
+import {MatInputModule} from '@angular/material/input';
+import {MatFormFieldModule} from '@angular/material/form-field';
+
+export class InsertParcelFormErrorStateMatcher implements ErrorStateMatcher {
+  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+    const isSubmitted = form && form.submitted;
+    return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
+  }
+}
+
 @Component({
   selector: 'app-insert-parcel-form',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, MatFormFieldModule, MatInputModule,],
   templateUrl: './insert-parcel-form.component.html',
   styleUrl: './insert-parcel-form.component.css',
   providers: [ApiService],
@@ -25,7 +39,7 @@ export class InsertParcelFormComponent implements OnInit {
   insertParcelForm!: FormGroup;
 
   private api = inject(ApiService);
-
+  matcher = new InsertParcelFormErrorStateMatcher();
   isSubmitted = false;
 
   ngOnInit(): void {
