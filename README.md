@@ -12,7 +12,7 @@ To run the app locally you need to have docker installed.
 docker-compose -f docker/docker-compose.yml up -d
 ```
 
-Sometiems backend doesn't see db, just kill backend contaner and rerun command above.
+Sometimes backend doesn't see db, just kill backend contaner and rerun command above.
 
 
 
