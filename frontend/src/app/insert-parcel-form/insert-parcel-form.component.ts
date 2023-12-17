@@ -15,6 +15,8 @@ import {
 import { ApiService } from '../services/api.service';
 import { Observable, map, of } from 'rxjs';
 
+import { SnackBarComponent } from '../snack-bar/snack-bar.component';
+
 //Material
 import { ErrorStateMatcher } from '@angular/material/core';
 import { MatInputModule } from '@angular/material/input';
@@ -22,6 +24,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatButtonModule } from '@angular/material/button';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 export class InsertParcelFormErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(
@@ -58,7 +61,8 @@ export class InsertParcelFormComponent implements OnInit {
 
   private api = inject(ApiService);
   matcher = new InsertParcelFormErrorStateMatcher();
-  isSubmitted = false;
+
+  constructor(private _snackBar: MatSnackBar) {}
 
   ngOnInit(): void {
     this.insertParcelForm = new FormGroup({
@@ -75,10 +79,6 @@ export class InsertParcelFormComponent implements OnInit {
         Validators.required,
         this.deliveryDateFutureValidator(),
       ]),
-    });
-
-    this.insertParcelForm.valueChanges.subscribe(() => {
-      this.isSubmitted = false;
     });
   }
 
@@ -108,10 +108,13 @@ export class InsertParcelFormComponent implements OnInit {
 
   // Sending data to the server
   onSubmit() {
-    this.isSubmitted = true;
     if (this.insertParcelForm.valid) {
       const formData = this.insertParcelForm.value;
       this.api.insertParcel(formData, (response) => {
+        //TODO: Show a new id to the user
+        this._snackBar.openFromComponent(SnackBarComponent, {
+          duration: 3000,
+        });
         console.log('Data submitted successfully:', response);
         this.insertParcelForm.reset();
       });
@@ -126,7 +129,7 @@ export class InsertParcelFormComponent implements OnInit {
     return new FormControl(initialValue, {
       validators: validators,
       asyncValidators: asyncValidators,
-      updateOn: 'submit',
+      updateOn: 'blur',
     });
   }
 }
