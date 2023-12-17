@@ -1,100 +1,118 @@
-<form [formGroup]="insertParcelForm" (ngSubmit)="onSubmit()">
-  <mat-form-field>
-    <mat-label>Parcel SKU</mat-label>
-    <input
-      type="text"
-      id="parcelSKU"
-      formControlName="parcelSKU"
-      matInput
-      [errorStateMatcher]="matcher"
-      placeholder="ABC-12345-S-BL"
-    />
-    @if (insertParcelForm.controls['parcelSKU'].errors?.['skuDuplicate']) {
-    <mat-error>SKU must be unique</mat-error>
-    } @if (insertParcelForm.controls['parcelSKU'].errors?.['required']) {
-    <mat-error>Parcel SKU is <strong>required</strong></mat-error>
-    }
-  </mat-form-field>
+<div class="form-container">
+  <form
+    [formGroup]="insertParcelForm"
+    (ngSubmit)="onSubmit()"
+    class="form-content"
+  >
+    <mat-form-field>
+      <mat-label>Parcel SKU</mat-label>
+      <input
+        type="text"
+        id="parcelSKU"
+        formControlName="parcelSKU"
+        matInput
+        [errorStateMatcher]="matcher"
+        placeholder="ABC-12345-S-BL"
+      />
+      <mat-error
+        *ngIf="insertParcelForm.controls['parcelSKU'].errors?.['skuDuplicate']"
+      >
+        SKU must be <strong>unique</strong>
+      </mat-error>
+      <mat-error
+        *ngIf="insertParcelForm.controls['parcelSKU'].errors?.['required']"
+      >
+        Parcel SKU is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
 
-  <mat-form-field>
-    <mat-label>Description</mat-label>
-    <textarea
-      type="text"
-      id="description"
-      formControlName="description"
-      matInput
-      [errorStateMatcher]="matcher"
-      placeholder="Short description"
-    ></textarea>
-    @if (insertParcelForm.controls['description'].errors?.['required']) {
-    <mat-error>Description is <strong>required</strong></mat-error>
-    }
-  </mat-form-field>
+    <mat-form-field>
+      <mat-label>Description</mat-label>
+      <textarea
+        type="text"
+        id="description"
+        formControlName="description"
+        matInput
+        [errorStateMatcher]="matcher"
+        placeholder="Short description"
+      ></textarea>
+      @if (insertParcelForm.controls['description'].errors?.['required']) {
+      <mat-error>Description is <strong>required</strong></mat-error>
+      }
+    </mat-form-field>
 
-  <mat-form-field>
-    <mat-label>Street address</mat-label>
-    <input
-      type="text"
-      id="streetAddress"
-      formControlName="streetAddress"
-      matInput
-      [errorStateMatcher]="matcher"
-      placeholder="123 Main St"
-    />
-    @if (insertParcelForm.controls['streetAddress'].errors?.['required']) {
-    <mat-error>Street address is <strong>required</strong></mat-error>
-    }
-  </mat-form-field>
+    <mat-form-field>
+      <mat-label>Street address</mat-label>
+      <input
+        type="text"
+        id="streetAddress"
+        formControlName="streetAddress"
+        matInput
+        [errorStateMatcher]="matcher"
+        placeholder="123 Main St"
+      />
+      @if (insertParcelForm.controls['streetAddress'].errors?.['required']) {
+      <mat-error>Street address is <strong>required</strong></mat-error>
+      }
+    </mat-form-field>
 
-  <mat-form-field>
-    <mat-label>Town</mat-label>
-    <input
-      type="text"
-      id="town"
-      formControlName="town"
-      matInput
-      [errorStateMatcher]="matcher"
-      placeholder="Anytown"
-    />
-    @if (insertParcelForm.controls['town'].errors?.['required']) {
-    <mat-error>Town is <strong>required</strong></mat-error>
-    }
-  </mat-form-field>
+    <mat-form-field>
+      <mat-label>Town</mat-label>
+      <input
+        type="text"
+        id="town"
+        formControlName="town"
+        matInput
+        [errorStateMatcher]="matcher"
+        placeholder="Anytown"
+      />
+      @if (insertParcelForm.controls['town'].errors?.['required']) {
+      <mat-error>Town is <strong>required</strong></mat-error>
+      }
+    </mat-form-field>
 
-  <mat-form-field>
-    <mat-label>Country</mat-label>
-    <input
-      type="text"
-      id="country"
-      formControlName="country"
-      matInput
-      [errorStateMatcher]="matcher"
-      placeholder="Wonderland"
-    />
-    @if (insertParcelForm.controls['country'].errors?.['required']) {
-    <mat-error>Country is <strong>required</strong></mat-error>
-    }
-  </mat-form-field>
+    <mat-form-field>
+      <mat-label>Country</mat-label>
+      <input
+        type="text"
+        id="country"
+        formControlName="country"
+        matInput
+        [errorStateMatcher]="matcher"
+        placeholder="Wonderland"
+      />
+      @if (insertParcelForm.controls['country'].errors?.['required']) {
+      <mat-error>Country is <strong>required</strong></mat-error>
+      }
+    </mat-form-field>
 
-  <mat-form-field>
-    <mat-label>Delivery date</mat-label>
-    <input
-      matInput
-      [matDatepicker]="picker"
-      id="deliveryDate"
-      formControlName="deliveryDate"
-    />
-    <mat-hint>Format: MM/DD/YYYY</mat-hint>
-    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-    <mat-datepicker #picker></mat-datepicker>
+    <mat-form-field>
+      <mat-label>Delivery date</mat-label>
+      <input
+        matInput
+        [matDatepicker]="picker"
+        id="deliveryDate"
+        formControlName="deliveryDate"
+      />
+      <mat-hint>Format: MM/DD/YYYY</mat-hint>
+      <mat-datepicker-toggle
+        matIconSuffix
+        [for]="picker"
+      ></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
 
-    <mat-error *ngIf="insertParcelForm.controls['deliveryDate'].errors?.['required']">
-      Delivery date is <strong>required</strong>
-    </mat-error>
-    <mat-error *ngIf="insertParcelForm.controls['deliveryDate'].errors?.['past']">
-      Delivery date shouldn't be in the past
-    </mat-error>
-  </mat-form-field>
+      <mat-error
+        *ngIf="insertParcelForm.controls['deliveryDate'].errors?.['required']"
+      >
+        Delivery date is <strong>required</strong>
+      </mat-error>
+      <mat-error
+        *ngIf="insertParcelForm.controls['deliveryDate'].errors?.['past']"
+      >
+        Delivery date shouldn't be in the past
+      </mat-error>
+    </mat-form-field>
 
-  <button type="submit">Submit</button>
-</form>
+    <button type="submit" mat-raised-button color="primary" class="submit-button">Submit</button>
+  </form>
+</div>

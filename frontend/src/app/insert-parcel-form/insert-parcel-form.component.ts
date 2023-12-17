@@ -16,23 +16,39 @@ import { ApiService } from '../services/api.service';
 import { Observable, map, of } from 'rxjs';
 
 //Material
-import {ErrorStateMatcher} from '@angular/material/core';
-import {MatInputModule} from '@angular/material/input';
-import {MatFormFieldModule} from '@angular/material/form-field';
-import {MatDatepickerModule} from '@angular/material/datepicker';
-import {MatNativeDateModule} from '@angular/material/core';
+import { ErrorStateMatcher } from '@angular/material/core';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatButtonModule } from '@angular/material/button';
 
 export class InsertParcelFormErrorStateMatcher implements ErrorStateMatcher {
-  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+  isErrorState(
+    control: FormControl | null,
+    form: FormGroupDirective | NgForm | null
+  ): boolean {
     const isSubmitted = form && form.submitted;
-    return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
+    return !!(
+      control &&
+      control.invalid &&
+      (control.dirty || control.touched || isSubmitted)
+    );
   }
 }
 
 @Component({
   selector: 'app-insert-parcel-form',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatDatepickerModule, MatNativeDateModule],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatButtonModule,
+  ],
   templateUrl: './insert-parcel-form.component.html',
   styleUrl: './insert-parcel-form.component.css',
   providers: [ApiService],
@@ -46,24 +62,23 @@ export class InsertParcelFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.insertParcelForm = new FormGroup({
-      parcelSKU: this.createControl('', [Validators.required], this.duplicateSKUVaidator()),
+      parcelSKU: this.createControl(
+        '',
+        [Validators.required],
+        this.duplicateSKUVaidator()
+      ),
       description: this.createControl('', [Validators.required]),
       streetAddress: this.createControl('', [Validators.required]),
       town: this.createControl('', [Validators.required]),
       country: this.createControl('', [Validators.required]),
-      deliveryDate: this.createControl('', [Validators.required, this.deliveryDateFutureValidator()]),
+      deliveryDate: this.createControl('', [
+        Validators.required,
+        this.deliveryDateFutureValidator(),
+      ]),
     });
 
     this.insertParcelForm.valueChanges.subscribe(() => {
       this.isSubmitted = false;
-    });
-  }
-
-  private createControl(initialValue: any, validators: ValidatorFn | ValidatorFn[], asyncValidators?: AsyncValidatorFn | AsyncValidatorFn[]) {
-    return new FormControl(initialValue, {
-      validators: validators,
-      asyncValidators: asyncValidators,
-      updateOn: 'submit'
     });
   }
 
@@ -85,9 +100,10 @@ export class InsertParcelFormComponent implements OnInit {
       if (!control.value) {
         return of(null);
       }
-        const isPast = (new Date(control.value).getTime() - new Date().getTime()) < 0
-      return isPast ? {past: true} : null;
-    }
+      const isPast =
+        new Date(control.value).getTime() - new Date().getTime() < 0;
+      return isPast ? { past: true } : null;
+    };
   }
 
   // Sending data to the server
@@ -100,5 +116,17 @@ export class InsertParcelFormComponent implements OnInit {
         this.insertParcelForm.reset();
       });
     }
+  }
+
+  private createControl(
+    initialValue: any,
+    validators: ValidatorFn | ValidatorFn[],
+    asyncValidators?: AsyncValidatorFn | AsyncValidatorFn[]
+  ) {
+    return new FormControl(initialValue, {
+      validators: validators,
+      asyncValidators: asyncValidators,
+      updateOn: 'submit',
+    });
   }
 }

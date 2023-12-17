@@ -1,0 +1,23 @@
+.form-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.form-content {
+  width: 50%; /* Adjust as needed */
+  max-width: 300px;
+  margin: auto;
+}
+
+.submit-button {
+  display: block; /* Makes the button a block element */
+  margin-top: 20px; /* Adjust the margin as needed */
+  margin-left: auto; /* Aligns the button to the center */
+  margin-right: auto; /* Aligns the button to the center */
+}
+
+mat-form-field {
+  width: 100%; /* Ensures each field takes full width */
+}
