@@ -1,5 +1,20 @@
 # parcels
-A tiny app for managing parcels
+A tiny app for managing parcels.
+
+You can add parcel and search parcels by country and description.
+
+The entry point to the app is in http://localhost:4200
+
+### Run locally
+To run the app locally you need to have docker installed.
+
+```bash
+docker-compose -f docker/docker-compose.yml up -d
+```
+
+Sometiems backend doesn't see db, just kill backend contaner and rerun command above.
+
+
 
 ### Dev environment set up
 
@@ -9,8 +24,6 @@ A tiny app for managing parcels
 npm install -g @angular/cli
 
 ```
-3) Install docker from official web site
-4) To run the project in docker use `docker-compose -f docker/docker-compose.yml up -d`
 
 ### Project structure
 

@@ -2,10 +2,11 @@ import "reflect-metadata";
 import { DataSource } from "typeorm";
 import { ParcelEntity } from "./parcel.entity";
 
+//TODO Make values configurable
 export const dataSource = new DataSource({
   type: "postgres",
-  host: "localhost",
-  port: 5433,
+  host: "db", // use localhosst if you run the app not in the docker
+  port: 5432, // use 5433 if you run the app not in the docker
   username: "parcels",
   password: "123",
   database: "parcelsdb",

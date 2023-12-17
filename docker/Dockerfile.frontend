@@ -6,11 +6,10 @@ RUN npm install -g @angular/cli
 
 COPY ../frontend/package.json ./
 COPY ../frontend/package-lock.json ./
-
-RUN npm install
-
 COPY ../frontend .
 
+
+RUN ng add @angular/material
 RUN ng build
 
 EXPOSE 4200
