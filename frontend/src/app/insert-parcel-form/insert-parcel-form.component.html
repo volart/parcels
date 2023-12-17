@@ -76,15 +76,25 @@
     }
   </mat-form-field>
 
-  <div>
-    <label for="deliveryDate">Delivery date:</label>
-    <input type="text" id="deliveryDate" formControlName="deliveryDate" />
-    <div
-      *ngIf="isSubmitted && insertParcelForm.controls['deliveryDate'].errors?.['required']"
-    >
-      Delivery date is required.
-    </div>
-  </div>
+  <mat-form-field>
+    <mat-label>Delivery date</mat-label>
+    <input
+      matInput
+      [matDatepicker]="picker"
+      id="deliveryDate"
+      formControlName="deliveryDate"
+    />
+    <mat-hint>Format: MM/DD/YYYY</mat-hint>
+    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+
+    <mat-error *ngIf="insertParcelForm.controls['deliveryDate'].errors?.['required']">
+      Delivery date is <strong>required</strong>
+    </mat-error>
+    <mat-error *ngIf="insertParcelForm.controls['deliveryDate'].errors?.['past']">
+      Delivery date shouldn't be in the past
+    </mat-error>
+  </mat-form-field>
 
   <button type="submit">Submit</button>
 </form>

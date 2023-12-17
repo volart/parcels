@@ -19,6 +19,8 @@ import { Observable, map, of } from 'rxjs';
 import {ErrorStateMatcher} from '@angular/material/core';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatNativeDateModule} from '@angular/material/core';
 
 export class InsertParcelFormErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -30,7 +32,7 @@ export class InsertParcelFormErrorStateMatcher implements ErrorStateMatcher {
 @Component({
   selector: 'app-insert-parcel-form',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, MatFormFieldModule, MatInputModule,],
+  imports: [CommonModule, ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatDatepickerModule, MatNativeDateModule],
   templateUrl: './insert-parcel-form.component.html',
   styleUrl: './insert-parcel-form.component.css',
   providers: [ApiService],
@@ -49,7 +51,7 @@ export class InsertParcelFormComponent implements OnInit {
       streetAddress: this.createControl('', [Validators.required]),
       town: this.createControl('', [Validators.required]),
       country: this.createControl('', [Validators.required]),
-      deliveryDate: this.createControl('', [Validators.required]),
+      deliveryDate: this.createControl('', [Validators.required, this.deliveryDateFutureValidator()]),
     });
 
     this.insertParcelForm.valueChanges.subscribe(() => {
@@ -76,6 +78,16 @@ export class InsertParcelFormComponent implements OnInit {
         })
       );
     };
+  }
+
+  deliveryDateFutureValidator(): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      if (!control.value) {
+        return of(null);
+      }
+        const isPast = (new Date(control.value).getTime() - new Date().getTime()) < 0
+      return isPast ? {past: true} : null;
+    }
   }
 
   // Sending data to the server
