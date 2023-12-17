@@ -4,6 +4,7 @@ import { Parcel } from '../models/parcel.model';
 import { Observable } from 'rxjs';
 import { SkuCheck } from '../models/sku-check.model';
 
+//TODO: Make it configurable
 const api_url = 'http://localhost:3000/api';
 
 @Injectable()

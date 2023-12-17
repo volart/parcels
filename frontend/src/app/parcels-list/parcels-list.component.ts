@@ -55,16 +55,31 @@ export class ParcelsListComponent implements OnInit {
       this.countryFilter,
       this.descriptionFilter,
       (response) => {
-        const parcels  = response as Parcels;
-        console.log(parcels)
+        const parcels = response as Parcels;
         this.sort(parcels.parcels);
       }
     );
   }
 
   sort(parcels: Parcel[]) {
-    this.sortedParcels = parcels.sort((a, b) =>
-      a.country === 'Estonia' ? -1 : new Date(a.deliveryDate).getTime() - new Date(b.deliveryDate).getTime()
-    );
+    this.sortedParcels = parcels.sort((a, b) => {
+      if (a.country === 'Estonia' && b.country === 'Estonia') {
+        return (
+          new Date(a.deliveryDate).getTime() - new Date(b.deliveryDate).getTime()
+        );
+      }
+
+      if (a.country === 'Estonia') {
+        return -1;
+      }
+
+      if (b.country === 'Estonia') {
+        return 1;
+      }
+
+      return (
+        new Date(a.deliveryDate).getTime() - new Date(b.deliveryDate).getTime()
+      );
+    });
   }
 }

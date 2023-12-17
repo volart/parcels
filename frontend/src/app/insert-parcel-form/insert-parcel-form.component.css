@@ -1,0 +1,24 @@
+.form-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 50vh;
+}
+
+.form-content {
+  width: 50%;
+  max-width: 300px;
+  margin: auto;
+}
+
+.submit-button {
+  display: block;
+  margin-top: 20px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 20px;
+}
+
+mat-form-field {
+  width: 100%;
+}
