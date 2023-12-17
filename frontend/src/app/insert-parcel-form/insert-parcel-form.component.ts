@@ -26,37 +26,38 @@ export class InsertParcelFormComponent implements OnInit {
 
   private api = inject(ApiService);
 
-  submitPressed = false;
+  isSubmitted = false;
 
   ngOnInit(): void {
-    // TODO: Add duplicateSKUVaidator for checking if parcel sku is duplicated
     this.insertParcelForm = new FormGroup({
-      // Stock keeping unit
-      parcelSKU: new FormControl('', {
-        validators: [Validators.required],
-        asyncValidators: [this.duplicateSKUVaidator()],
-        updateOn: 'blur'
-      }),
-      description: new FormControl('', Validators.required),
-      streetAddress: new FormControl('', Validators.required),
-      town: new FormControl('', Validators.required),
-      country: new FormControl('', Validators.required),
-      deliveryDate: new FormControl('', Validators.required),
+      parcelSKU: this.createControl('', [Validators.required], this.duplicateSKUVaidator()),
+      description: this.createControl('', [Validators.required]),
+      streetAddress: this.createControl('', [Validators.required]),
+      town: this.createControl('', [Validators.required]),
+      country: this.createControl('', [Validators.required]),
+      deliveryDate: this.createControl('', [Validators.required]),
     });
 
     this.insertParcelForm.valueChanges.subscribe(() => {
-      this.submitPressed = false;
+      this.isSubmitted = false;
     });
   }
 
-  // TODO: Add logic to check if this sku is a duplicate
+  private createControl(initialValue: any, validators: ValidatorFn | ValidatorFn[], asyncValidators?: AsyncValidatorFn | AsyncValidatorFn[]) {
+    return new FormControl(initialValue, {
+      validators: validators,
+      asyncValidators: asyncValidators,
+      updateOn: 'submit'
+    });
+  }
+
   duplicateSKUVaidator(): AsyncValidatorFn {
     return (control: AbstractControl): Observable<ValidationErrors | null> => {
       if (!control.value) {
         return of(null);
       }
       return this.api.checkDuplicate(control.value).pipe(
-        map(response => {
+        map((response) => {
           return response.duplicate ? { skuDuplicate: true } : null;
         })
       );
@@ -65,7 +66,7 @@ export class InsertParcelFormComponent implements OnInit {
 
   // Sending data to the server
   onSubmit() {
-    this.submitPressed = true;
+    this.isSubmitted = true;
     if (this.insertParcelForm.valid) {
       const formData = this.insertParcelForm.value;
       this.api.insertParcel(formData, (response) => {
